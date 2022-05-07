@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+
+body {
+    font-family: 'Inter';
+    box-sizing: border-box;
+}
+
+figcaption {
+    display: none;
+}
+
+main {
+    display: flex;
+}
+header {
+    width: 100vw;
+    height: 70px;
+    background-color: #ebe9e9;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+header > img {
+    width: 30px;
+    height: 30px;
+    margin-left: 118px;
+}
+
+header > h1 {
+    font-size: 30px;
+    font-weight: bolder;
+    margin-left: 10px;
+}
+
+header > nav {
+    width: 200px;
+    margin-left: 810px;
+}
+
+header > nav > ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.page__now{
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #242424;
+}
+
+.page__now--load{
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: bolder;
+    color: #242424;
+}
+
+.page__now:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.page__now--load:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#shop__container {
+    margin: 52px 520px 0px 118px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card__container {
+    width: 296px;
+    height: 400px;
+    margin-right: 40px;
+    margin-bottom: 22px;
+    border: 1px solid #ebe9e9;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+
+}
+.figure__img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 296px;
+}
+.figure__thumb {
+    width: 150px;
+    height: 150px;    
+}
+
+.btn__category {
+    width: 70px;
+    height: 30px;
+    margin: 20px 0px 0px 15px;
+    border-style: none;
+    font-size: 12px;
+    font-weight: 400;
+    color: #FFFFFF;
+    background-color: #2E245E;
+}
+
+.title__item {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 15px 0px 0px 15px;
+
+}
+
+.resumn__item {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 15px 0px 0px 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+-webkit-line-clamp: 2;  
+-webkit-box-orient: vertical; 
+}
+
+.price__item {
+   font-size: 16px;
+   font-weight: 700;
+   color: #2E245E; 
+   margin: 15px 0px 0px 15px;
+}
+
+.btn__addCart {
+    font-size: 16px;
+    padding: 0px;
+    font-weight: 500;
+    border: none;
+    margin: 15px 0px 20px 15px;
+    background-color: #FFFFFF;
+}
+
+.btn__addCart:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#search__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: 52px;
+}
+
+#search__input {
+    width: 245px;
+    height: 50px;
+    padding-left: 14px;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: #ebe9e9;
+    border: none;
+}
+
+#search__btn {
+    width: 95px;
+    height: 52px;
+    margin-left: 10px;
+    color: #FFFFFF;
+    background-color: #2E245E;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#search__btn:hover {
+    background-color: #37268C;
+    cursor: pointer;
+}
+
+#cart__header {
+    width: 347px;
+    height: 50px;
+    color: #FFFFFF;
+    background-color: #37268C;
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.cart__flow{
+    width: 350px;
+    height: 215px;
+    background-color: #ebe9e9;
+    color:#242424;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.cart__item {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.cart__img {
+    width: 80px;
+    height: 80px;
+    margin-left: 20px;
+}
+
+.cart__title {
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.cart__price {
+    font-weight: 600;
+    font-size: 12px;
+    color: #2E245E;
+    margin-top: 10px;
+}
+
+.cart__remove {
+    font-weight: 400;
+    font-size: 12px;
+    color: #828282;
+    margin-top: 10px;
+}
+
+.cart__remove:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
