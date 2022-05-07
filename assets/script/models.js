@@ -4,13 +4,13 @@ import { dataBase } from "./dataBase.js";
 let shopperItems = [];
 
 //Rendering the cards
-function createCards () {
+function createCards (cards = dataBase) {
 
     //Selecting container
     const shopContainer = document.querySelector('#shop__container');
     shopContainer.innerHTML = ''
 
-    dataBase.forEach((element) => {
+    cards.forEach((element) => {
         
         const section = document.createElement('section');
             section.classList.add('card__container');
@@ -111,14 +111,15 @@ function cartEventPush (event) {
 }
 
     
-function createCart () {
-    if (shopperItems.length > 0){
+function createCart ( cards = shopperItems) {
+
+    if (cards.length > 0){
         
         const container = document.querySelector('#shop__cart');
         container.classList.replace('cart__flow', 'cart__flow--active')
         container.innerHTML = ''
 
-        shopperItems.forEach((element) => {
+        cards.forEach((element) => {
 
             const section = document.createElement('section');
                 section.classList.add('cart__item');
@@ -129,13 +130,38 @@ function createCart () {
 
             container.appendChild(section)
         })
+
+        //selecting aside
+        const aside = document.querySelector('#shop__aside')
+        const cartTotal = document.querySelector('.cart__total')
+            if (cartTotal !== null){
+                aside.removeChild(cartTotal)
+            }
+        aside.appendChild(cartAmountData(cards))
+
+
     return container
 
     } else {
 
         const container = document.querySelector('#shop__cart');
-        container.classList.remove('active')
         container.innerHTML = ''
+        container.classList.replace('cart__flow--active', 'cart__flow' );
+
+            let h3 = document.createElement('h3');
+                h3.innerText = 'Cart Empty'
+            container.appendChild(h3);
+
+            let small = document.createElement('small');
+                small.classList.add('cart__msgbuy');
+                small.innerText = 'Add items to cart!';
+            container.appendChild(small);  
+            
+        const aside = document.querySelector('#shop__aside')
+        const cartTotal = document.querySelector('.cart__total')
+            if (cartTotal !== null){
+                aside.removeChild(cartTotal)
+                }   
 
         return container
     }
@@ -183,18 +209,42 @@ function cartItemRemovBtn (id) {
 
 function removeCartItem (event) {
 
-    let find = shopperItems.find((element) => {
+    let find = shopperItems.findIndex((element) => {
         if (element.id === event) {
             return element
         }})
     
-    if (shopperItems.length === 1){
-            shopperItems = []
-            createCart()
-    } else {
-        shopperItems = shopperItems.filter((items) => {
-        items.id !== find.id
-        })
-        createCart()
-    }
+    shopperItems.splice(find, 1)
+    createCart(shopperItems)
 }
+
+function cartAmountData (cartAmount){
+
+    let items = cartAmount.length
+    let amount = 0
+    cartAmount.forEach(element => {
+        amount += element.price
+    });
+
+    return cartAmountTemplate(items, amount)
+}
+
+function cartAmountTemplate (itemAmount, itemPrice) {
+
+    const container = document.createElement('section');
+        container.classList.add('cart__total')
+    
+    const smallItems = document.createElement('small');
+        smallItems.innerText = `Items: ${itemAmount}`
+    
+    const smallPrice = document.createElement('small')
+        smallPrice.innerText = `Total: R$ ${itemPrice}`
+
+    container.appendChild(smallItems);
+    container.appendChild(smallPrice);
+
+    return container
+}
+
+
+
