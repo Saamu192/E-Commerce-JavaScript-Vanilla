@@ -70,8 +70,10 @@ function cardDescription(itemDescription) {
 function cardPrice(itemPrice) {
   const price = document.createElement("small");
   price.classList.add("price__item");
-  price.innerText = `R$ ${itemPrice}`;
-
+  price.innerText = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(itemPrice);
   return price;
 }
 
@@ -168,7 +170,10 @@ function cartItemTitle(itemTitle) {
 function cartItemPrice(itemPrice) {
   const price = document.createElement("small");
   price.classList.add("cart__price");
-  price.innerText = `R$ ${itemPrice}`;
+  price.innerText = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(itemPrice); //Formatação do preço
 
   return price;
 }
@@ -213,7 +218,10 @@ function cartAmountTemplate(itemAmount, itemPrice) {
   smallItems.innerText = `Items: ${itemAmount}`;
 
   const smallPrice = document.createElement("small");
-  smallPrice.innerText = `Total: R$ ${itemPrice}`;
+  smallPrice.innerText = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(itemPrice);
 
   container.appendChild(smallItems);
   container.appendChild(smallPrice);
