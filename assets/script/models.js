@@ -4,247 +4,219 @@ import { dataBase } from "./dataBase.js";
 let shopperItems = [];
 
 //Rendering the cards
-function createCards (cards = dataBase) {
+function createCards(cards = dataBase) {
+  //Selecting container
+  const shopContainer = document.querySelector("#shop__container");
+  shopContainer.innerHTML = "";
 
-    //Selecting container
-    const shopContainer = document.querySelector('#shop__container');
-    shopContainer.innerHTML = ''
+  cards.forEach((element) => {
+    const section = document.createElement("section");
+    section.classList.add("card__container");
 
-    cards.forEach((element) => {
-        
-        const section = document.createElement('section');
-            section.classList.add('card__container');
-        
-        section.appendChild(cardImg(element.imgSrc, element.figCaption));
-        section.appendChild(cardTag(element.tag, element.id))
-        section.appendChild(cardTitle(element.itemTitle))
-        section.appendChild(cardDescription(element.resumn))
-        section.appendChild(cardPrice(element.price))
-        section.appendChild(cardAddToCart(element.id))
+    section.appendChild(cardImg(element.imgSrc, element.figCaption));
+    section.appendChild(cardTag(element.tag, element.id));
+    section.appendChild(cardTitle(element.itemTitle));
+    section.appendChild(cardDescription(element.resumn));
+    section.appendChild(cardPrice(element.price));
+    section.appendChild(cardAddToCart(element.id));
 
-        shopContainer.appendChild(section)
-    })
+    shopContainer.appendChild(section);
+  });
 
-    return shopContainer
+  return shopContainer;
 }
 
-createCards()
+createCards();
 
+function cardImg(imgSrc, imgCaption) {
+  const figure = document.createElement("figure");
+  figure.classList.add("figure__img");
 
-function cardImg (imgSrc, imgCaption) {
+  const img = document.createElement("img");
+  img.classList.add("figure__thumb");
+  img.src = imgSrc;
+  img.alt = imgCaption;
 
-    const figure = document.createElement('figure');
-        figure.classList.add('figure__img');
+  figure.appendChild(img);
 
-    const img = document.createElement('img');
-        img.classList.add('figure__thumb');
-        img.src = imgSrc;
-        img.alt = imgCaption;
-    
-    figure.appendChild(img);
-
-    return figure;
+  return figure;
 }
 
-function cardTag (tag, id) {
-    
-    const button = document.createElement('button');
-        button.classList.add('btn__category');
-        button.id = id;
-        button.innerText = tag;
+function cardTag(tag, id) {
+  const button = document.createElement("button");
+  button.classList.add("btn__category");
+  button.id = id;
+  button.innerText = tag;
 
-    return button
+  return button;
 }
 
-function cardTitle (itemTitle) {
+function cardTitle(itemTitle) {
+  const title = document.createElement("h3");
+  title.classList.add("title__item");
+  title.innerText = itemTitle;
 
-    const title = document.createElement('h3');
-        title.classList.add('title__item');
-        title.innerText = itemTitle;
-    
-    return title
+  return title;
 }
 
-function cardDescription (itemDescription) {
+function cardDescription(itemDescription) {
+  const description = document.createElement("P");
+  description.classList.add("resumn__item");
+  description.innerText = itemDescription;
 
-    const description = document.createElement('P');
-        description.classList.add('resumn__item');
-        description.innerText = itemDescription;
-
-    return description
+  return description;
 }
 
-function cardPrice (itemPrice) {
+function cardPrice(itemPrice) {
+  const price = document.createElement("small");
+  price.classList.add("price__item");
+  price.innerText = `R$ ${itemPrice}`;
 
-    const price = document.createElement('small')
-        price.classList.add('price__item');
-        price.innerText = `R$ ${itemPrice}`
-
-    return price
+  return price;
 }
 
-function cardAddToCart (id) {
+function cardAddToCart(id) {
+  const button = document.createElement("button");
+  button.classList.add("btn__addCart");
+  button.id = id;
+  button.innerText = "Add to Shopping Cart";
+  button.addEventListener("click", (event) => {
+    cartEventPush(event.currentTarget.id);
+  });
 
-    const button = document.createElement('button');
-        button.classList.add('btn__addCart');
-        button.id = id
-        button.innerText = 'Add to Shopping Cart'
-        button.addEventListener('click', (event) => {
-          cartEventPush(event.currentTarget.id)
-        })
-    
-    return button
+  return button;
 }
-
 
 //Selection addToCartBtn
 
-function cartEventPush (event) {
-    
-    let find = dataBase.find((element) => {
-        if (element.id === event) {
-            return element
-        }
-    })
-    shopperItems.push(find)
-    return createCart()
-}
-
-    
-function createCart ( cards = shopperItems) {
-
-    if (cards.length > 0){
-        
-        const container = document.querySelector('#shop__cart');
-        container.classList.replace('cart__flow', 'cart__flow--active')
-        container.innerHTML = ''
-
-        cards.forEach((element) => {
-
-            const section = document.createElement('section');
-                section.classList.add('cart__item');
-            section.appendChild(cartItemImg(element.imgSrc));
-            section.appendChild(cartItemTitle(element.itemTitle));
-            section.appendChild(cartItemPrice(element.price));
-            section.appendChild(cartItemRemovBtn(element.id));
-
-            container.appendChild(section)
-        })
-
-        //selecting aside
-        const aside = document.querySelector('#shop__aside')
-        const cartTotal = document.querySelector('.cart__total')
-            if (cartTotal !== null){
-                aside.removeChild(cartTotal)
-            }
-        aside.appendChild(cartAmountData(cards))
-
-
-    return container
-
-    } else {
-
-        const container = document.querySelector('#shop__cart');
-        container.innerHTML = ''
-        container.classList.replace('cart__flow--active', 'cart__flow' );
-
-            let h3 = document.createElement('h3');
-                h3.innerText = 'Cart Empty'
-            container.appendChild(h3);
-
-            let small = document.createElement('small');
-                small.classList.add('cart__msgbuy');
-                small.innerText = 'Add items to cart!';
-            container.appendChild(small);  
-            
-        const aside = document.querySelector('#shop__aside')
-        const cartTotal = document.querySelector('.cart__total')
-            if (cartTotal !== null){
-                aside.removeChild(cartTotal)
-                }   
-
-        return container
+function cartEventPush(event) {
+  let find = dataBase.find((element) => {
+    if (element.id === event) {
+      return element;
     }
-
+  });
+  shopperItems.push(find);
+  return createCart();
 }
 
-function cartItemImg (imgSrc) {
+function createCart(cards = shopperItems) {
+  if (cards.length > 0) {
+    const container = document.querySelector("#shop__cart");
+    container.classList.replace("cart__flow", "cart__flow--active");
+    container.innerHTML = "";
 
-    const img = document.createElement('img');
-        img.src = imgSrc;
-        img.classList.add('cart__img');
+    cards.forEach((element) => {
+      const section = document.createElement("section");
+      section.classList.add("cart__item");
+      section.appendChild(cartItemImg(element.imgSrc));
+      section.appendChild(cartItemTitle(element.itemTitle));
+      section.appendChild(cartItemPrice(element.price));
+      section.appendChild(cartItemRemovBtn(element.id));
 
-    return img
-}
-
-function cartItemTitle (itemTitle) {
-
-    const title = document.createElement('h3');
-        title.classList.add('cart__title');
-        title.innerText = itemTitle;
-    
-    return title
-}
-
-function cartItemPrice (itemPrice) {
-
-    const price = document.createElement('small');
-        price.classList.add('cart__price');
-        price.innerText = `R$ ${itemPrice}`
-    
-    return price
-}
-
-function cartItemRemovBtn (id) {
-
-    const btn = document.createElement('btn')
-        btn.classList.add('cart__remove');
-        btn.innerText = 'Remove Item';
-        btn.id = id;
-        btn.addEventListener('click', (event) => {
-            removeCartItem(event.currentTarget.id)
-        })
-    return btn
-}
-
-function removeCartItem (event) {
-
-    let find = shopperItems.findIndex((element) => {
-        if (element.id === event) {
-            return element
-        }})
-    
-    shopperItems.splice(find, 1)
-    createCart(shopperItems)
-}
-
-function cartAmountData (cartAmount){
-
-    let items = cartAmount.length
-    let amount = 0
-    cartAmount.forEach(element => {
-        amount += element.price
+      container.appendChild(section);
     });
 
-    return cartAmountTemplate(items, amount)
+    //selecting aside
+    const aside = document.querySelector("#shop__aside");
+    const cartTotal = document.querySelector(".cart__total");
+    if (cartTotal !== null) {
+      aside.removeChild(cartTotal);
+    }
+    aside.appendChild(cartAmountData(cards));
+
+    return container;
+  } else {
+    const container = document.querySelector("#shop__cart");
+    container.innerHTML = "";
+    container.classList.replace("cart__flow--active", "cart__flow");
+
+    let h3 = document.createElement("h3");
+    h3.innerText = "Cart Empty";
+    container.appendChild(h3);
+
+    let small = document.createElement("small");
+    small.classList.add("cart__msgbuy");
+    small.innerText = "Add items to cart!";
+    container.appendChild(small);
+
+    const aside = document.querySelector("#shop__aside");
+    const cartTotal = document.querySelector(".cart__total");
+    if (cartTotal !== null) {
+      aside.removeChild(cartTotal);
+    }
+
+    return container;
+  }
 }
 
-function cartAmountTemplate (itemAmount, itemPrice) {
+function cartItemImg(imgSrc) {
+  const img = document.createElement("img");
+  img.src = imgSrc;
+  img.classList.add("cart__img");
 
-    const container = document.createElement('section');
-        container.classList.add('cart__total')
-    
-    const smallItems = document.createElement('small');
-        smallItems.innerText = `Items: ${itemAmount}`
-    
-    const smallPrice = document.createElement('small')
-        smallPrice.innerText = `Total: R$ ${itemPrice}`
-
-    container.appendChild(smallItems);
-    container.appendChild(smallPrice);
-
-    return container
+  return img;
 }
 
+function cartItemTitle(itemTitle) {
+  const title = document.createElement("h3");
+  title.classList.add("cart__title");
+  title.innerText = itemTitle;
 
+  return title;
+}
 
+function cartItemPrice(itemPrice) {
+  const price = document.createElement("small");
+  price.classList.add("cart__price");
+  price.innerText = `R$ ${itemPrice}`;
+
+  return price;
+}
+
+function cartItemRemovBtn(id) {
+  const btn = document.createElement("btn");
+  btn.classList.add("cart__remove");
+  btn.innerText = "Remove Item";
+  btn.id = id;
+  btn.addEventListener("click", (event) => {
+    removeCartItem(event.currentTarget.id);
+  });
+  return btn;
+}
+
+function removeCartItem(event) {
+  let find = shopperItems.findIndex((element) => {
+    if (element.id === event) {
+      return element;
+    }
+  });
+
+  shopperItems.splice(find, 1);
+  createCart(shopperItems);
+}
+
+function cartAmountData(cartAmount) {
+  let items = cartAmount.length;
+  let amount = 0;
+  cartAmount.forEach((element) => {
+    amount += element.price;
+  });
+
+  return cartAmountTemplate(items, amount);
+}
+
+function cartAmountTemplate(itemAmount, itemPrice) {
+  const container = document.createElement("section");
+  container.classList.add("cart__total");
+
+  const smallItems = document.createElement("small");
+  smallItems.innerText = `Items: ${itemAmount}`;
+
+  const smallPrice = document.createElement("small");
+  smallPrice.innerText = `Total: R$ ${itemPrice}`;
+
+  container.appendChild(smallItems);
+  container.appendChild(smallPrice);
+
+  return container;
+}
