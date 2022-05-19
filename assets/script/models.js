@@ -47,6 +47,10 @@ function cardTag(tag, id) {
   button.classList.add("btn__category");
   button.id = id;
   button.innerText = tag;
+  button.addEventListener("click", (event) => {
+    event.preventDefault;
+    tagCategoryFilter(event.target.innerText);
+  });
 
   return button;
 }
@@ -60,7 +64,7 @@ function cardTitle(itemTitle) {
 }
 
 function cardDescription(itemDescription) {
-  const description = document.createElement("P");
+  const description = document.createElement("p");
   description.classList.add("resumn__item");
   description.innerText = itemDescription;
 
@@ -89,7 +93,7 @@ function cardAddToCart(id) {
   return button;
 }
 
-//Selection addToCartBtn
+//Selecting addToCartBtn
 
 function cartEventPush(event) {
   let find = dataBase.find((element) => {
@@ -173,7 +177,7 @@ function cartItemPrice(itemPrice) {
   price.innerText = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-  }).format(itemPrice); //Formatação do preço
+  }).format(itemPrice);
 
   return price;
 }
@@ -227,4 +231,94 @@ function cartAmountTemplate(itemAmount, itemPrice) {
   container.appendChild(smallPrice);
 
   return container;
+}
+
+//funções de pesquisa
+
+function navCategoryEvent() {
+  const navSelector = document.querySelectorAll(".page__now");
+  const navItems = [...navSelector];
+  navItems.forEach((element) => {
+    element.addEventListener("click", (event) => {
+      event.preventDefault();
+      navCategoryFilter(event.target);
+    });
+  });
+}
+navCategoryEvent();
+
+function navCategoryFilter(event) {
+  const nextNav = event;
+  const navText = event.innerText;
+  let newData = [];
+  const previusNav = document.querySelector(".load");
+  previusNav.classList.remove("load");
+  nextNav.classList.add("load");
+  if (navText !== "All") {
+    newData = dataBase.filter((element) => {
+      if (element.tag === navText) {
+        return element;
+      }
+    });
+    return createCards(newData);
+  } else {
+    return createCards();
+  }
+}
+
+function tagCategoryFilter(event) {
+  const navSelector = document.querySelectorAll(".page__now");
+  const navItems = [...navSelector];
+  navItems.forEach((element) => {
+    if (element.innerText === event) {
+      element.classList.add("load");
+    } else if (element.classList.contains("load")) {
+      element.classList.remove("load");
+    }
+  });
+  let newData = [];
+  newData = dataBase.filter((element) => {
+    if (element.tag === event) {
+      return element;
+    }
+  });
+  return createCards(newData);
+}
+
+function searchEvent() {
+  const searchBtn = document.querySelector("#search__input");
+  let keys = "";
+
+  searchBtn.addEventListener("keyup", (event) => {
+    event.preventDefault();
+    if (event.key !== "Backspace") {
+      keys += event.key;
+      searchBar(keys);
+    } else if (event.key === "Backspace") {
+      let backKey = keys.slice(0, -1);
+      keys = backKey;
+      searchBar(keys);
+    }
+  });
+}
+searchEvent();
+
+function searchBar(textToSearch) {
+  let selectTitles = document.querySelectorAll("h3");
+  let selectText = document.querySelectorAll("p");
+  let pattern = new RegExp(textToSearch, "gi");
+
+  for (let i = 0; i < selectText.length; i++) {
+    selectText[i].innerHTML = selectText[i].textContent.replace(
+      pattern,
+      (match) => `<mark>${match}</mark>`
+    );
+  }
+
+  for (let i = 0; i < selectTitles.length; i++) {
+    selectTitles[i].innerHTML = selectTitles[i].textContent.replace(
+      pattern,
+      (match) => `<mark>${match}</mark>`
+    );
+  }
 }

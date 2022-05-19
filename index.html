@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/style/reset.css" />
     <link rel="stylesheet" href="/assets/style/style.css" />
+    <link rel="icon" href="./assets/img/Golden.png" />
     <title>Apollo E-commerce</title>
   </head>
   <body>
@@ -14,7 +15,7 @@
       <h1>Apollo Tech</h1>
       <nav>
         <ul>
-          <li class="page__now--load">All</li>
+          <li class="page__now load">All</li>
           <li class="page__now">Washing</li>
           <li class="page__now">Dryers</li>
         </ul>
@@ -26,7 +27,7 @@
       <section id="shop__container"></section>
       <aside id="shop__aside">
         <!--search input-->
-        <section id="search__container">
+        <form method="get" id="search__container">
           <input
             id="search__input"
             type="search"
@@ -34,7 +35,7 @@
             placeholder="Enter your search here..."
           />
           <button id="search__btn" type="submit">Search</button>
-        </section>
+        </form>
 
         <!--cart header-->
         <section id="cart__header">
@@ -48,8 +49,6 @@
         </section>
       </aside>
     </main>
-
-    <!--shopping cart-->
     <script type="module" src="./assets/script/models.js"></script>
   </body>
 </html>
