@@ -287,38 +287,24 @@ function tagCategoryFilter(event) {
 
 function searchEvent() {
   const searchBtn = document.querySelector("#search__input");
-  let keys = "";
-
   searchBtn.addEventListener("keyup", (event) => {
     event.preventDefault();
-    if (event.key !== "Backspace") {
-      keys += event.key;
-      searchBar(keys);
-    } else if (event.key === "Backspace") {
-      let backKey = keys.slice(0, -1);
-      keys = backKey;
-      searchBar(keys);
-    }
-  });
+   searchBar(event.currentTarget.value)
+  })
 }
+   
 searchEvent();
 
-function searchBar(textToSearch) {
-  let selectTitles = document.querySelectorAll("h3");
-  let selectText = document.querySelectorAll("p");
-  let pattern = new RegExp(textToSearch, "gi");
-
-  for (let i = 0; i < selectText.length; i++) {
-    selectText[i].innerHTML = selectText[i].textContent.replace(
-      pattern,
-      (match) => `<mark>${match}</mark>`
-    );
-  }
-
-  for (let i = 0; i < selectTitles.length; i++) {
-    selectTitles[i].innerHTML = selectTitles[i].textContent.replace(
-      pattern,
-      (match) => `<mark>${match}</mark>`
-    );
-  }
+function searchBar(text) {
+  const search = []
+  dataBase.forEach((element) => {
+    if (element.itemTitle.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ){
+      search.push(element)
+    }else if (element.resumn.toLocaleLowerCase().includes(text.toLocaleLowerCase())){
+      search.push(element)
+    } else if (element.tag.toLocaleLowerCase().includes(text.toLocaleLowerCase())){
+      search.push(element)
+    }
+  })
+  createCards(search)
 }

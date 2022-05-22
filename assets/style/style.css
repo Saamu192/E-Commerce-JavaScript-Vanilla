@@ -88,6 +88,10 @@ header > nav > ul {
   align-items: flex-start;
   justify-content: space-around;
 }
+
+.card__container:hover{
+border: 1px solid #37268c;
+}
 .figure__img {
   display: flex;
   align-items: center;
@@ -108,6 +112,10 @@ header > nav > ul {
   font-weight: 400;
   color: #ffffff;
   background-color: #2e245e;
+}
+
+.btn__category:hover{
+  cursor: pointer;
 }
 
 .title__item {
@@ -160,7 +168,7 @@ aside {
 }
 
 #search__input {
-  width: 245px;
+  width: 100%;
   height: 50px;
   padding-left: 14px;
   font-size: 14px;
