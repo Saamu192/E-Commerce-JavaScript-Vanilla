@@ -289,22 +289,8 @@ function searchEvent() {
   const searchBtn = document.querySelector("#search__input");
   searchBtn.addEventListener("keyup", (event) => {
     event.preventDefault();
-   searchBar(event.currentTarget.value)
-  })
+    searchBar(event.currentTarget.value);
+  });
 }
-   
-searchEvent();
 
-function searchBar(text) {
-  const search = []
-  dataBase.forEach((element) => {
-    if (element.itemTitle.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ){
-      search.push(element)
-    }else if (element.resumn.toLocaleLowerCase().includes(text.toLocaleLowerCase())){
-      search.push(element)
-    } else if (element.tag.toLocaleLowerCase().includes(text.toLocaleLowerCase())){
-      search.push(element)
-    }
-  })
-  createCards(search)
-}
+searchEvent();
