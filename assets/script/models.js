@@ -314,3 +314,5 @@ function searchBar(text) {
   });
   createCards(search);
 }
+
+//pequuena alteração essencial
