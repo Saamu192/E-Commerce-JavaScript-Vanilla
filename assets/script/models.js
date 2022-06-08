@@ -284,13 +284,3 @@ function tagCategoryFilter(event) {
   });
   return createCards(newData);
 }
-
-function searchEvent() {
-  const searchBtn = document.querySelector("#search__input");
-  searchBtn.addEventListener("keyup", (event) => {
-    event.preventDefault();
-    searchBar(event.currentTarget.value);
-  });
-}
-
-searchEvent();
