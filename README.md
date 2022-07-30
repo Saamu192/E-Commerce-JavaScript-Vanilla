@@ -1,7 +1,10 @@
-# Basic-dom-ecommerce
-Creation of my first ecommerce site using dom in an object database.  
+# E-Commerce com JavaScript Vanilla
 
-Here we will have:  
+Esse foi meu primeiro projeto. É simples mas é o queridinho!
 
-Creating a pure JS(vanilla) shopping cart; 
-Creation of product cards through DOM;
+Aqui teremos:  
+
+Criação com DOM em JavaScript Vanilla de carrinho de compras; 
+Criação de todo template através do DOM;
+
+acesse o site: 
