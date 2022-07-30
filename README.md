@@ -7,4 +7,4 @@ Aqui teremos:
 Criação com DOM em JavaScript Vanilla de carrinho de compras; 
 Criação de todo template através do DOM;
 
-acesse o site: 
+acesse o site: https://saamu192.github.io/E-Commerce-JavaScript-Vanilla/
